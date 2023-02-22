@@ -1,2 +1,3 @@
 pangeo-forge-cmr
 git+https://github.com/yuvipanda/pangeo-forge-recipes@subpath
+git+https://github.com/yuvipanda/pangeo-forge-earthdatalogin@main
