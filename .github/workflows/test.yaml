@@ -1,7 +1,7 @@
 name: Python package
 
 on:
-  - pr
+  - pull_request
   - push
 
 jobs:
