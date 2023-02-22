@@ -21,12 +21,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flake8 pytest
+          pip install pytest pytest-github-report
+
           pip install git+https://github.com/pangeo-forge/pangeo-forge-runner@local-testing
           pip install -r feedstock/requirements.txt
 
       - name: Test with pytest
         env:
           EARTHDATA_LOGIN_TOKEN: ${{ vars.EARTHDATA_LOGIN_TOKEN }}
+          pytest_github_report: true
         run: |
           pytest tests/
