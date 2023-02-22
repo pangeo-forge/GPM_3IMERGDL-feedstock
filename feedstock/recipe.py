@@ -24,8 +24,8 @@ recipe = (
     | OpenURLWithEarthDataLogin()
     | OpenWithXarray()
     | StoreToZarr(
-        store_name=f'gpm-3imergdl',
-        target_chunks={'time': 16},
+        store_name='gpm-3imergdl',
+        target_chunks={'time': 1},
         combine_dims=pattern.combine_dim_keys,
     )
 )
