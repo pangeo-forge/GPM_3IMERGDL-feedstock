@@ -22,5 +22,5 @@ def test_variables(zarr_store: xarray.Dataset):
     """
     expected_vars = ['HQprecipitation', 'HQprecipitation_cnt', 'HQprecipitation_cnt_cond', 'lat', 'lon', 'precipitationCal', 'precipitationCal_cnt', 'precipitationCal_cnt_cond', 'randomError', 'randomError_cnt', 'time', 'time_bnds']
     for var in expected_vars:
-        assert var in list(zar_store.variables)
+        assert var in list(zarr_store.variables)
     
