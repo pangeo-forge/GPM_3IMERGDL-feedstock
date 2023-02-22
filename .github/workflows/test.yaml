@@ -24,5 +24,7 @@ jobs:
           pip install -r feedstock/requirements.txt
 
       - name: Test with pytest
+        env:
+          EARTHDATA_LOGIN_TOKEN: ${{ var.EARTHDATA_LOGIN_TOKEN }}
         run: |
           pytest tests/
