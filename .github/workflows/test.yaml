@@ -30,4 +30,4 @@ jobs:
           EARTHDATA_LOGIN_TOKEN: ${{ secrets.EARTHDATA_LOGIN_TOKEN }}
           pytest_github_report: true
         run: |
-          pytest tests/
+          pytest -s tests/
