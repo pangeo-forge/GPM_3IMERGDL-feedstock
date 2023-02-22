@@ -27,7 +27,7 @@ jobs:
 
       - name: Test with pytest
         env:
-          EARTHDATA_LOGIN_TOKEN: ${{ vars.EARTHDATA_LOGIN_TOKEN }}
+          EARTHDATA_LOGIN_TOKEN: ${{ secrets.EARTHDATA_LOGIN_TOKEN }}
           pytest_github_report: true
         run: |
           pytest tests/
