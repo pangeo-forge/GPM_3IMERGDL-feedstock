@@ -9,7 +9,7 @@ import tempfile
 import time
 
 ROOT_DIR = pathlib.Path(__file__).parent.parent
-ZARR_STORE_NAME = os.env.get("ZARR_STORE_NAME", "gpm-3imergdl")
+ZARR_STORE_NAME = os.environ.get("ZARR_STORE_NAME", "gpm-3imergdl")
 
 base_config = {
     "TargetStorage": {
