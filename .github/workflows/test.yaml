@@ -69,7 +69,7 @@ jobs:
 
       - name: Write tree structure to summary
         run:
-          apt update > /dev/null && apt install --yes tree
+          sudo apt update > /dev/null && sudo apt install --yes tree
           echo "## Zarr store tree structure" >> $GITHUB_STEP_SUMMARY
           echo "```" >> $GITHUB_STEP_SUMMARY
           tree --du -h ${{ env.ZARR_STORE_PATH }} >> $GITHUB_STEP_SUMMARY
