@@ -68,7 +68,7 @@ jobs:
             f.write("```\n")
 
       - name: Write tree structure to summary
-        run:
+        run: |
           sudo apt update > /dev/null && sudo apt install --yes tree
           echo "## Zarr store tree structure" >> $GITHUB_STEP_SUMMARY
           echo "```" >> $GITHUB_STEP_SUMMARY
