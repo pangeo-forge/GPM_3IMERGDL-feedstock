@@ -33,8 +33,9 @@ jobs:
       - name: Generate name of the test
         run: |
           JOB_NAME="test-$(date '+%F-%H-%M-%S')"
+          ZARR_STORE_NAME="gpm-3imergdl"
           echo "JOB_NAME=${JOB_NAME}" >> $GITHUB_ENV
-          echo "ZARR_STORE_NAME=gpm-3imergdl" >> $GITHUB_ENV
+          echo "ZARR_STORE_NAME=${ZARR_STORE_NAME}" >> $GITHUB_ENV
           echo "ZARR_STORE_PATH=storage/output/${JOB_NAME}/${ZARR_STORE_NAME}" >> $GITHUB_ENV
 
       - name: Test with pytest
