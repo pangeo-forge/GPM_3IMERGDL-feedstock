@@ -25,7 +25,7 @@ recipe = (
     | OpenWithXarray()
     | StoreToZarr(
         store_name='gpm-3imergdl',
-        target_chunks={'time': 1},
+        target_chunks={'time': 2},
         combine_dims=pattern.combine_dim_keys,
     )
 )
