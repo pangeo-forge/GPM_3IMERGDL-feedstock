@@ -60,5 +60,7 @@ jobs:
           with open(step_summary_file, mode="a") as f:
             f.write("\n")
             f.write("## Produced dataset summary\n")
-            f.write(ds._repr_html())
+            f.write("```\n")
+            f.write(str(ds))
             f.write("\n")
+            f.write("```\n")
