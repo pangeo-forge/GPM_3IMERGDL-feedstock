@@ -33,9 +33,34 @@ jobs:
           pip install git+https://github.com/pangeo-forge/pangeo-forge-runner@local-testing
           pip install -r feedstock/requirements.txt
 
+      - name: Generate name of the test
+        run: |
+          JOB_NAME="test-$(date '+%F-%H-%M-%S')"
+          echo "JOB_NAME=${JOB_NAME}" >> $GITHUB_ENV
+          echo "ZARR_STORE_NAME=gpm-3imergdl" >> $GITHUB_ENV
+
       - name: Test with pytest
         env:
           EARTHDATA_LOGIN_TOKEN: ${{ secrets.EARTHDATA_LOGIN_TOKEN }}
+          JOB_NAME: ${{ env.JOB_NAME }}
+          ZARR_STORE_NAME: ${{ env.ZARR_STORE_NAME }}
           pytest_github_report: true
         run: |
           pytest -s tests/
+
+      - name: Write xarray output to summary
+        shell: python -u {0}
+        run: |
+          import xarray as xr
+          import os
+
+          step_summary_file = os.environ["GITHUB_STEP_SUMMARY"]
+
+          ds = xr.open_dataset("storage/output/${{ env.JOB_NAME }}/${{ env.ZARR_STORE_NAME }}", engine="zarr")
+
+          print(str(ds))
+
+          with open(step_summary_file, mode="a") as f:
+            f.write("\n")
+            f.write("Produced dataset summary")
+            f.write(str(ds))

@@ -9,7 +9,7 @@ import tempfile
 import time
 
 ROOT_DIR = pathlib.Path(__file__).parent.parent
-ZARR_STORE_NAME = "gpm-3imergdl"
+ZARR_STORE_NAME = os.env.get("ZARR_STORE_NAME", "gpm-3imergdl")
 
 base_config = {
     "TargetStorage": {
@@ -27,7 +27,7 @@ base_config = {
 
 @pytest.fixture(scope="module")
 def zarr_store_root() -> str:
-    job_name = f"test-{str(int(time.time()))}"
+    job_name = os.environ.get("JOB_NAME", f"test-{str(int(time.time()))}")
     config = copy.deepcopy(base_config)
     config["Bake"]["job_name"] = job_name
     config["TargetStorage"]["root_path"]= f"file://{ROOT_DIR}/storage/output/{job_name}"
