@@ -35,6 +35,7 @@ jobs:
           JOB_NAME="test-$(date '+%F-%H-%M-%S')"
           echo "JOB_NAME=${JOB_NAME}" >> $GITHUB_ENV
           echo "ZARR_STORE_NAME=gpm-3imergdl" >> $GITHUB_ENV
+          echo "ZARR_STORE_PATH=storage/output/${JOB_NAME}/${ZARR_STORE_NAME}" >> $GITHUB_ENV
 
       - name: Test with pytest
         env:
@@ -53,7 +54,7 @@ jobs:
 
           step_summary_file = os.environ["GITHUB_STEP_SUMMARY"]
 
-          ds = xr.open_dataset("storage/output/${{ env.JOB_NAME }}/${{ env.ZARR_STORE_NAME }}", engine="zarr")
+          ds = xr.open_dataset("${{ env.ZARR_STORE_PATH }}", engine="zarr")
 
           print(str(ds))
 
@@ -64,3 +65,12 @@ jobs:
             f.write(str(ds))
             f.write("\n")
             f.write("```\n")
+
+      - name: Write tree structure to summary
+        run:
+          apt update > /dev/null && apt install --yes tree
+          echo "## Zarr store tree structure" >> $GITHUB_STEP_SUMMARY
+          echo "```" >> $GITHUB_STEP_SUMMARY
+          tree --du -h ${{ env.ZARR_STORE_PATH }} >> $GITHUB_STEP_SUMMARY
+          echo "```" >> $GITHUB_STEP_SUMMARY
+
