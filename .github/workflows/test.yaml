@@ -79,27 +79,25 @@ jobs:
         run: |
           set -x
           echo '## Logs' >> $GITHUB_STEP_SUMMARY
-          ls *
-          cat *.log
 
           echo 'Logs produced during the *parsing* of your recipe file' >> $GITHUB_STEP_SUMMARY
-          echo '<detail><summary>INFO level log</summary>' >> $GITHUB_STEP_SUMMARY
+          echo '<details><summary>INFO level log</summary>' >> $GITHUB_STEP_SUMMARY
           echo '<pre>' >> $GITHUB_STEP_SUMMARY
-          cat ${JOB_NAME}_parse.info.log > $$GITHUB_STEP_SUMMARY
-          echo '</pre></detail>' >> $GITHUB_STEP_SUMMARY
+          cat ${JOB_NAME}_parse.info.log >> $$GITHUB_STEP_SUMMARY
+          echo '</pre></details>' >> $GITHUB_STEP_SUMMARY
 
-          echo '<detail><summary>DEBUG level log</summary>' >> $GITHUB_STEP_SUMMARY
+          echo '<details><summary>DEBUG level log</summary>' >> $GITHUB_STEP_SUMMARY
           echo '<pre>' >> $GITHUB_STEP_SUMMARY
-          cat ${JOB_NAME}_parse.debug.log > $$GITHUB_STEP_SUMMARY
-          echo '</pre></detail>' >> $GITHUB_STEP_SUMMARY
+          cat ${JOB_NAME}_parse.debug.log >> $$GITHUB_STEP_SUMMARY
+          echo '</pre></details>' >> $GITHUB_STEP_SUMMARY
 
           echo 'Logs produced during the *running* of your recipe file' >> $GITHUB_STEP_SUMMARY
-          echo '<detail><summary>INFO level log</summary>' >> $GITHUB_STEP_SUMMARY
+          echo '<details><summary>INFO level log</summary>' >> $GITHUB_STEP_SUMMARY
           echo '<pre>' >> $GITHUB_STEP_SUMMARY
-          cat ${JOB_NAME}_beam.info.log > $$GITHUB_STEP_SUMMARY
-          echo '</pre></detail>' >> $GITHUB_STEP_SUMMARY
+          cat ${JOB_NAME}_beam.info.log >> $$GITHUB_STEP_SUMMARY
+          echo '</pre></details>' >> $GITHUB_STEP_SUMMARY
 
-          echo '<detail><summary>DEBUG level log</summary>' >> $GITHUB_STEP_SUMMARY
+          echo '<details><summary>DEBUG level log</summary>' >> $GITHUB_STEP_SUMMARY
           echo '<pre>' >> $GITHUB_STEP_SUMMARY
-          cat ${JOB_NAME}_beam.debug.log > $$GITHUB_STEP_SUMMARY
-          echo '</pre></detail>' >> $GITHUB_STEP_SUMMARY
+          cat ${JOB_NAME}_beam.debug.log >> $$GITHUB_STEP_SUMMARY
+          echo '</pre></details>' >> $GITHUB_STEP_SUMMARY
