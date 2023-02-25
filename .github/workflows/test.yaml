@@ -79,6 +79,7 @@ jobs:
         run: |
           set -x
           echo '## Logs' >> $GITHUB_STEP_SUMMARY
+          ls *
 
           echo 'Logs produced during the *parsing* of your recipe file' >> $GITHUB_STEP_SUMMARY
           echo '<detail><summary="INFO level log"></summary>' >> $GITHUB_STEP_SUMMARY
