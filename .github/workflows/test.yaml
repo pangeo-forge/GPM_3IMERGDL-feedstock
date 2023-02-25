@@ -96,8 +96,3 @@ jobs:
           echo '<pre>' >> $GITHUB_STEP_SUMMARY
           cat ${JOB_NAME}_beam.info.log >> $GITHUB_STEP_SUMMARY
           echo '</pre></details>' >> $GITHUB_STEP_SUMMARY
-
-          echo '<details><summary>DEBUG level log</summary>' >> $GITHUB_STEP_SUMMARY
-          echo '<pre>' >> $GITHUB_STEP_SUMMARY
-          cat ${JOB_NAME}_beam.debug.log >> $GITHUB_STEP_SUMMARY
-          echo '</pre></details>' >> $GITHUB_STEP_SUMMARY
