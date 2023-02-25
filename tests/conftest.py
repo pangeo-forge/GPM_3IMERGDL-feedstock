@@ -11,26 +11,72 @@ import time
 ROOT_DIR = pathlib.Path(__file__).parent.parent
 ZARR_STORE_NAME = os.environ.get("ZARR_STORE_NAME", "gpm-3imergdl")
 
-base_config = {
-    "TargetStorage": {
-        "fsspec_class": "fsspec.implementations.local.LocalFileSystem",
-    },
-    "InputCacheStorage": {
-        "fsspec_class": "fsspec.implementations.local.LocalFileSystem",
-        "root_path": f"file://{ROOT_DIR}/storage/cache"
-    },
-    "Bake": {
-        "bakery_class":  "pangeo_forge_runner.bakery.local.LocalDirectBakery"
-    }
-}
 
 
 @pytest.fixture(scope="module")
 def zarr_store_root() -> str:
     job_name = os.environ.get("JOB_NAME", f"test-{str(int(time.time()))}")
-    config = copy.deepcopy(base_config)
-    config["Bake"]["job_name"] = job_name
-    config["TargetStorage"]["root_path"]= f"file://{ROOT_DIR}/storage/output/{job_name}"
+
+    config = {
+        "BaseCommand": {
+            "logging_config": {
+                "version": 1,
+                "formatters": {
+                    "simple": {
+                        "format": "%(asctime)s %(levelname)s %(message)s"
+                    }
+                },
+                "handlers": {
+                    "recipe_parse_debug": {
+                        "class": "logging.FileHandler",
+                        "level": "DEBUG",
+                        "formatter": "simple",
+                        "filename": f"{job_name}_parse.debug.log"
+                    },
+                    "recipe_parse_info": {
+                        "class": "logging.FileHandler",
+                        "level": "INFO",
+                        "formatter": "simple",
+                        "filename": f"{job_name}_parse.info.log"
+                    },
+                    "beam_info_log": {
+                        "class": "logging.FileHandler",
+                        "level": "INFO",
+                        "formatter": "simple",
+                        "filename": f"{job_name}_beam.info.log"
+                    },
+                    "beam_debug_log": {
+                        "class": "logging.FileHandler",
+                        "level": "DEBUG",
+                        "formatter": "simple",
+                        "filename": f"{job_name}_beam.debug.log"
+                    }
+                },
+                "loggers": {
+                    "pangeo_forge_recipes.parse": {
+                        "level": "DEBUG",
+                        "handlers": ["recipe_parse_debug", "recipe_parse_info"]
+                    },
+                    "apache_beam": {
+                        "level": "DEBUG",
+                        "handlers": ["beam_info_log", "beam_debug_log"]
+                    }
+                }
+            }
+        },
+        "TargetStorage": {
+            "fsspec_class": "fsspec.implementations.local.LocalFileSystem",
+            "root_path": f"file://{ROOT_DIR}/storage/output/{job_name}"
+        },
+        "InputCacheStorage": {
+            "fsspec_class": "fsspec.implementations.local.LocalFileSystem",
+            "root_path": f"file://{ROOT_DIR}/storage/cache"
+        },
+        "Bake": {
+            "bakery_class":  "pangeo_forge_runner.bakery.local.LocalDirectBakery",
+            "job_name": job_name
+        }
+    }
     with tempfile.NamedTemporaryFile(suffix=".json") as f:
         print(config)
         f.write(json.dumps(config).encode())
