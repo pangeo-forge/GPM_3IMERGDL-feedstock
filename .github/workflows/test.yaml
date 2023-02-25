@@ -90,9 +90,3 @@ jobs:
           echo '<pre>' >> $GITHUB_STEP_SUMMARY
           cat ${JOB_NAME}_parse.debug.log >> $GITHUB_STEP_SUMMARY
           echo '</pre></details>' >> $GITHUB_STEP_SUMMARY
-
-          echo 'Logs produced during the *running* of your recipe file' >> $GITHUB_STEP_SUMMARY
-          echo '<details><summary>INFO level log</summary>' >> $GITHUB_STEP_SUMMARY
-          echo '<pre>' >> $GITHUB_STEP_SUMMARY
-          cat ${JOB_NAME}_beam.info.log >> $GITHUB_STEP_SUMMARY
-          echo '</pre></details>' >> $GITHUB_STEP_SUMMARY
